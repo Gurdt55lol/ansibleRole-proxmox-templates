@@ -19,8 +19,8 @@
   ansible.builtin.copy:
     content: "{{ sshkey }}"
     dest: "{{ isopath }}/id_rsa.pub"
-    owner: root
-    group: root
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: '0644'
 - name: set cloud init settings
   ansible.builtin.script: "config.sh {{ templateID }} {{ ipconfig0 }} {{ isopath }}/id_rsa.pub {{ ciuser }} {{ importStorage }} {{ isopath }}/{{ item.templateName }}.qcow2"

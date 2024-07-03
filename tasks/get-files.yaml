@@ -1,0 +1,15 @@
+- name: create iso folder
+  ansible.builtin.file:
+    path: "{{ isopath }}"
+    state: directory
+    mode: '0755'
+- name: Copy cloud-init images
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ isopath }}/{{ item.templateName }}.qcow2"
+  with_items: "{{ cloudimgs }}"
+- name: script tp clear machine id
+  ansible.builtin.copy:
+    src: clear-machine-id.sh
+    dest: "{{ isopath }}/clear-machine-id.sh"
+    mode: '0755'

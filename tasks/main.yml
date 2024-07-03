@@ -1,5 +1,6 @@
 ---
 # tasks file 
-- include_tasks: download-images.yaml
+- include_tasks: gather-facts.yaml
+- include_tasks: get-files.yaml
 - include_tasks: customize-images.yaml
 - include_tasks: create-templates.yaml
