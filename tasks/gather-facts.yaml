@@ -14,25 +14,9 @@
   ansible.builtin.set_fact:
     next_vm_id: "{{ vmlist_json.content | b64decode | from_json  | json_query('ids') | dict2items  | json_query('[].key') | map('int') | list | max + 1 }}"
   when: qm_list.stdout != ""
-- name: check against minimum vm id
+- name: etup templateStartingID
   ansible.builtin.set_fact:
-    next_vm_id: "{{ templateStartingID | int }}"
-  when: next_vm_id | int < templateStartingID
+    next_template_id: "{{ templateStartingID | int }}"
 - name: debug
   ansible.builtin.debug:
-    msg: "{{ next_vm_id }}"
-- name: create iso folder
-  ansible.builtin.file:
-    path: "{{ isopath }}"
-    state: directory
-    mode: '0755'
-- name: Copy cloud-init images
-  ansible.builtin.get_url:
-    url: "{{ item.url }}"
-    dest: "{{ isopath }}/{{ item.templateName }}.qcow2"
-  with_items: "{{ cloudimgs }}"
-- name: script tp clear machine id
-  ansible.builtin.copy:
-    src: clear-machine-id.sh
-    dest: "{{ isopath }}/clear-machine-id.sh"
-    mode: '0755'
+    msg: "{{ next_template_id }}"

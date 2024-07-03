@@ -1,0 +1,7 @@
+- name: create-vms
+  ansible.builtin.shell: -|
+    qm clone  {{ next_vm_id }} --name {{ item.name }} --full true --target {{ ansible_host }}
+    qm clone 100 101 --name new-vm --full true --target pve
+    qm set 101 --cores 2 --memory 2048 --net0 virtio,bridge=vmbr0
+    qm start 101
+  with_items: "{{ vms }}"
