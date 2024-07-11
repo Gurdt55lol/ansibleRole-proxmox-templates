@@ -1,6 +1,8 @@
 ---
 # tasks file 
-- include_tasks: gather-facts.yaml
-- include_tasks: get-files.yaml
-- include_tasks: customize-images.yaml
-- include_tasks: create-templates.yaml
+- ansible.builtin.include_tasks: gather-facts.yaml
+- ansible.builtin.include_tasks: get-files.yaml
+- ansible.builtin.include_tasks: customize-images.yaml
+- ansible.builtin.include_tasks: create-templates.yaml
+- ansible.builtin.include_tasks: create-vms.yml
+  

@@ -16,4 +16,4 @@
   when: qm_list.stdout != ""
 - name: debug
   ansible.builtin.debug:
-    msg: "{{ next_template_id }}"
+    msg: "{{ next_vm_id }}"

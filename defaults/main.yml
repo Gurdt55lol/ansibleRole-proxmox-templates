@@ -4,7 +4,6 @@ templateCores: 2 # number of cores
 templateDiskSize: 32G # disk size in GB
 # starting ID for the VMs, the first VM will have the ID 8000, the second 8001 and so on.
 # if you already have vms with the ID it will automatically increment the ID to the next available one.
-templateStartingID: 8000
 importStorage: local-lvm # the storage where the templates will be imported to.
 
 # list of cloud images to download and import
@@ -14,14 +13,20 @@ cloudimgs:
   - url: "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
     templateName: ubuntu-jammy-server
     additionalDescription: ""
+    templateID: 8000
 ciuser: # the user that will be added via cloudinit configurations
 ipconfig0: ip=dhcp # ip6=auto,ip=dhcp 
 sshkey: "" # ssh key that will be added to the user, this should be your public key.
 installAgent: true # if true the proxmox agent will be installed on the VMs
+
+
 # list of all the vms to be created from the template
 vms:
   - name: homeserver
     size: 100G
-    cores: 2
+    cores: 3
     memory: 8192
-    templateName: ubuntu-jammy-server
+    network: virtio,bridge=vmbr0
+    origin-template-id: 8000
+    target_node: "{{ ansible_host }}"
+    start: true
