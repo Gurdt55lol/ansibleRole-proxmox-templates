@@ -2,7 +2,7 @@ isopath: /var/isos # path to where the images will be downloaded to on your prox
 templateMemory: 2048 # memory in MB
 templateCores: 2 # number of cores
 templateDiskSize: 32G # disk size in GB
-# starting ID for the VMs, the first VM will have the ID 8000, the second 8001 and so on.
+# starting ID for the VMs, the first VM will have the ID 8000, the second 8001 and so on. 
 # if you already have vms with the ID it will automatically increment the ID to the next available one.
 importStorage: local-lvm # the storage where the templates will be imported to.
 
@@ -10,8 +10,8 @@ importStorage: local-lvm # the storage where the templates will be imported to.
 # the template name will be the name of the proxmox template
 # the additionalDescription will be added to the description of the proxmox template.
 cloudimgs:
-  - url: "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
-    templateName: ubuntu-jammy-server
+  - name: ubuntu-jammy-server
+    url: "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
     additionalDescription: ""
     templateID: 8000
 ciuser: # the user that will be added via cloudinit configurations

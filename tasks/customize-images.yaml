@@ -5,7 +5,7 @@
     update_cache: yes
     cache_valid_time: 3600
   when: installAgent | bool
-- name: add install agent
+- name: Install qemu-guest-agent agent to template
   ansible.builtin.shell: |
     virt-customize -a {{ isopath }}/{{ item.templateName }}.qcow2 --install qemu-guest-agent
   with_items: "{{ cloudimgs }}"
