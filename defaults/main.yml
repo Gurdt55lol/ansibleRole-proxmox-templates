@@ -14,10 +14,10 @@ cloudimgs:
     url: "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
     additionalDescription: ""
     templateID: 8000
-ciuser: # the user that will be added via cloudinit configurations
-ipconfig0: ip=dhcp # ip6=auto,ip=dhcp 
-sshkey: "" # ssh key that will be added to the user, this should be your public key.
-installAgent: true # if true the proxmox agent will be installed on the VMs
+    user: dude # the user that will be added via cloudinit configuration
+    ipconfig0: ip=dhcp # ip6=auto,ip=dhcp 
+    sshkey: "" # ssh key that will be added to the user, this should be your public key.
+    installAgent: true # if true the proxmox agent will be installed on the VMs
 
 
 # list of all the vms to be created from the template
@@ -27,6 +27,7 @@ vms:
     cores: 3
     memory: 8192
     network: virtio,bridge=vmbr0
+    ip: 192.168.0.111/24
     origin-template-id: 8000
     target_node: "{{ ansible_host }}"
     start: true
