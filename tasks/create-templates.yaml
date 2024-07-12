@@ -16,7 +16,7 @@
 
 - name: copy ssh key to proxmox
   ansible.builtin.copy:
-    content: "{{ sshkey }}"
+    content: "{{ item.sshkey }}"
     dest: "{{ isopath }}/id_rsa.pub"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
@@ -32,7 +32,7 @@
 
 - name: convert to template
   ansible.builtin.shell:
-    cmd: qm template {{ templateID }}
+    cmd: qm template {{ item.templateID }}
   with_items: "{{ cloudimgs }}"
   loop_control:
     extended: true
