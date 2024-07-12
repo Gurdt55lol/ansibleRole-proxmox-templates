@@ -7,7 +7,7 @@
 
 - name: Create templates
   ansible.builtin.shell:
-    cmd: qm create {{ item.templateID }} --memory {{ item.templateMemory }} --core {{ item.templateCores }} --name {{ item.name }} --net0 virtio,bridge=vmbr0 --description "{{ hostvars[inventory_hostname]['dynamic_fact_for_' + item.templateName |  hash('sha1')] }} {{ item.additionalDescription | default('') }}"
+    cmd: qm create {{ item.templateID }} --memory {{ templateMemory }} --core {{ templateCores }} --name {{ item.name }} --net0 virtio,bridge=vmbr0 --description "{{ hostvars[inventory_hostname]['dynamic_fact_for_' + item.templateName |  hash('sha1')] }} {{ item.additionalDescription | default('') }}"
   register: command_result
   failed_when:
     - '"already exists" not in command_result.stderr'
@@ -21,6 +21,7 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: '0644'
+  with_items: "{{ cloudimgs }}"
 
 - name: set cloud init settings
   ansible.builtin.script: "config.sh {{ item.templateID }} {{ item.ipconfig0 }} {{ isopath }}/id_rsa.pub {{ item.user }} {{ importStorage }} {{ isopath }}/{{ item.name }}.qcow2"
